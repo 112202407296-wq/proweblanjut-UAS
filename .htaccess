@@ -1,0 +1,12 @@
+Options -Indexes
+RewriteEngine On
+
+# Base direktori — sesuaikan jika nama folder berbeda
+RewriteBase /proweblanjut-UAS/
+
+# Izinkan akses langsung ke file dan folder yang ada (img/, css/, dll)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Semua URL lain diarahkan ke index.php sebagai query string
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
