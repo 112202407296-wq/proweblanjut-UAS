@@ -106,13 +106,68 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link fw-medium" href="<?= BASEURL ?? ''; ?>">Katalog</a></li>
+                <?php if (isset($_SESSION['user_id']) && ($_SESSION['role'] ?? '') !== 'admin'): ?>
+                <li class="nav-item">
+                    <a class="nav-link fw-medium" href="<?= BASEURL ?? ''; ?>/history">
+                        <i class="fas fa-history me-1"></i> Riwayat Pesanan
+                    </a>
+                </li>
+                <?php endif; ?>
             </ul>
             <div class="d-flex align-items-center gap-3">
-                <!-- Link ke keranjang Randi -->
+                <!-- Link ke keranjang Randi (selalu terlihat) -->
                 <a href="<?= BASEURL ?? ''; ?>/cart" class="btn btn-outline-light-custom rounded-pill px-4">
-                    <i class="fas fa-shopping-cart"></i> Cart
+                    <i class="fas fa-shopping-cart me-1"></i> Cart
                 </a>
-                <a href="<?= BASEURL ?? ''; ?>/auth/login" class="btn btn-coffee rounded-pill px-4 fw-medium">Login</a>
+
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <!-- Sudah Login: Tampilkan info user -->
+
+                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <!-- Khusus Admin: Link ke panel admin -->
+                    <a href="<?= BASEURL ?? ''; ?>/admin" class="btn btn-outline-light-custom rounded-pill px-3 fw-medium" title="Panel Admin">
+                        <i class="fas fa-shield-halved me-1"></i> Admin
+                    </a>
+                    <?php endif; ?>
+
+                    <!-- Dropdown nama user -->
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-coffee rounded-pill px-4 fw-medium dropdown-toggle"
+                            type="button"
+                            id="user-dropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <i class="fas fa-circle-user me-1"></i>
+                            <?= htmlspecialchars($_SESSION['username'] ?? 'User'); ?>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3" aria-labelledby="user-dropdown">
+                            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                            <li>
+                                <a class="dropdown-item py-2" href="<?= BASEURL ?? ''; ?>/admin">
+                                    <i class="fas fa-boxes-stacked me-2" style="color: var(--color-coffee);"></i> Panel Admin
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <?php endif; ?>
+                            <li>
+                                <a class="dropdown-item py-2 text-danger" href="<?= BASEURL ?? ''; ?>/auth/logout" id="btn-logout">
+                                    <i class="fas fa-right-from-bracket me-2"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                <?php else: ?>
+                    <!-- Belum Login: Tampilkan tombol Login & Daftar -->
+                    <a href="<?= BASEURL ?? ''; ?>/auth/register" class="btn btn-outline-light-custom rounded-pill px-3 fw-medium" id="btn-nav-daftar">
+                        Daftar
+                    </a>
+                    <a href="<?= BASEURL ?? ''; ?>/auth/login" class="btn btn-coffee rounded-pill px-4 fw-medium" id="btn-nav-login">
+                        <i class="fas fa-sign-in-alt me-1"></i> Login
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

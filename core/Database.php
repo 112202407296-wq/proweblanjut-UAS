@@ -5,7 +5,7 @@ class Database {
 
     public function __construct() {
         // Menangkap file .env di root project
-        $env_path = __DIR__ . '/../../.env';
+        $env_path = __DIR__ . '/../.env';
         if (!file_exists($env_path)) {
             die("Fatal Error: File .env tidak ditemukan!");
         }
