@@ -86,7 +86,7 @@ class AdminController extends Controller {
 
             // Enkripsi nama file: kombinasi hash unik + timestamp → anti-overwrite
             $nama_gambar   = md5(uniqid() . time()) . '.' . $ext;
-            $tujuan_simpan = __DIR__ . '/../img/' . $nama_gambar;
+            $tujuan_simpan = __DIR__ . '/../../img/' . $nama_gambar;
 
             if (!move_uploaded_file($tmp_name, $tujuan_simpan)) {
                 $_SESSION['flash_error'] = 'Gagal mengunggah gambar. Pastikan folder img/ bisa ditulis.';
@@ -170,7 +170,7 @@ class AdminController extends Controller {
 
             // Hapus gambar lama jika bukan default
             if ($gambar_lama !== 'default.jpg') {
-                $path_lama = __DIR__ . '/../img/' . $gambar_lama;
+                $path_lama = __DIR__ . '/../../img/' . $gambar_lama;
                 if (file_exists($path_lama)) {
                     unlink($path_lama);
                 }
@@ -178,7 +178,7 @@ class AdminController extends Controller {
 
             // Upload gambar baru dengan nama unik
             $nama_gambar   = md5(uniqid() . time()) . '.' . $ext;
-            $tujuan_simpan = __DIR__ . '/../img/' . $nama_gambar;
+            $tujuan_simpan = __DIR__ . '/../../img/' . $nama_gambar;
             move_uploaded_file($tmp_name, $tujuan_simpan);
         }
 
@@ -210,7 +210,7 @@ class AdminController extends Controller {
         if ($produk) {
             // Hapus file gambar dari server (kecuali default.jpg)
             if ($produk['gambar'] !== 'default.jpg') {
-                $path_gambar = __DIR__ . '/../img/' . $produk['gambar'];
+                $path_gambar = __DIR__ . '/../../img/' . $produk['gambar'];
                 if (file_exists($path_gambar)) {
                     unlink($path_gambar);
                 }
