@@ -110,7 +110,6 @@ class AuthController extends Controller {
             $_SESSION['user_id']  = $user['id'];       // Dipakai Randi (cart/order)
             $_SESSION['username'] = $user['username']; // Dipakai Annas (navbar)
             $_SESSION['role']     = $user['role'];     // 'admin' atau 'customer'
-            $_SESSION['email']    = $user['email'];    // Dipakai Randi (Midtrans customer_details)
             // ─────────────────────────────────────────────────
 
             $this->redirectByRole();
