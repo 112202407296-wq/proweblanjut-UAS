@@ -106,6 +106,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link fw-medium" href="<?= BASEURL ?? ''; ?>">Katalog</a></li>
+                <?php if (isset($_SESSION['user_id']) && ($_SESSION['role'] ?? '') !== 'admin'): ?>
+                <li class="nav-item">
+                    <a class="nav-link fw-medium" href="<?= BASEURL ?? ''; ?>/history">
+                        <i class="fas fa-history me-1"></i> Riwayat Pesanan
+                    </a>
+                </li>
+                <?php endif; ?>
             </ul>
             <div class="d-flex align-items-center gap-3">
                 <!-- Link ke keranjang Randi (selalu terlihat) -->

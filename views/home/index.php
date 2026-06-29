@@ -20,10 +20,18 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">Stok: <?= $item['stok']; ?></span>
 
-                            <!-- PERHATIKAN BARIS INI: Ini jembatan penyerahan tugas ke Randi! -->
-                            <a href="<?= BASEURL ?? ''; ?>/cart/add/<?= $item['id']; ?>" class="btn btn-coffee btn-sm rounded-pill px-3 shadow-sm">
-                                <i class="fas fa-plus me-1"></i> Beli
-                            </a>
+                            <!-- POST form ke CartController::add() -->
+                            <?php if ($item['stok'] > 0): ?>
+                            <form method="POST" action="<?= BASEURL ?? ''; ?>/cart/add">
+                                <input type="hidden" name="product_id" value="<?= $item['id']; ?>">
+                                <input type="hidden" name="qty" value="1">
+                                <button type="submit" class="btn btn-coffee btn-sm rounded-pill px-3 shadow-sm">
+                                    <i class="fas fa-plus me-1"></i> Beli
+                                </button>
+                            </form>
+                            <?php else: ?>
+                            <button class="btn btn-secondary btn-sm rounded-pill px-3" disabled>Habis</button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
